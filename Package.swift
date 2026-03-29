@@ -15,28 +15,28 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "CTKANALYSIS",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/analysis-v1.0.7/CTKANALYSIS.xcframework.zip",
-            checksum: "21c5ccfa772088e666d173e79eef6c090180f9d04aee2620dc55592a91f5d228"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/analysis-v1.0.9/CTKANALYSIS.xcframework.zip",
+            checksum: "f884d920e092e31c1dce1173900b4e060a9a2fb9cbfd4591ca97a996e1585a32"
         ),
         .binaryTarget(
             name: "OpenCV",
             url: "https://static.uwb.app/ctk/opencv2.xcframework.zip",
-            checksum: "140cf20797b3843dfb29161bcb0c7b17bb5a2a71bddca49ab5af2a6d4ce02f10"
+            checksum: "8b9f7bdf2221258d18761d9596837dd5344a672ef15bfb46e97b63030f0fba1a"
         ),
         .binaryTarget(
             name: "LibTorch",
             url: "https://static.uwb.app/ctk/LibTorch.xcframework.zip",
-            checksum: "9625d061add7b37de9b0f4d36a5aa453fe6d03d1918078a71535d1cb9145a8b5"
+            checksum: "20c7a4dff89c05aae12eec26a084dedaa8347fbf4538cf62206819af66b94e7f"
         ),
         .binaryTarget(
             name: "TensorFlowLiteC",
             url: "https://static.uwb.app/ctk/TensorFlowLiteC.xcframework.zip",
-            checksum: "4a4e90101ca5ad76c7d62fd67e7c2c0a4ba8b1674051bc13c72b6c3dc08b06bf"
+            checksum: "f18fde8fd4f92d309031fc947bfa353d13caffdd88ab671dfe9f2dc31be7abcc"
         ),
         .binaryTarget(
             name: "ONNXRuntime",
             url: "https://static.uwb.app/ctk/onnxruntime.xcframework.zip",
-            checksum: "199984a7aa46ef268c552bc57904e49ffc492935e090b4d7b584eb93e3ccba97"
+            checksum: "c89d526bb921b28877a8eadc0f0144bb577a75973e808b07c23d3812da4dbfa5"
         )
     ]
 )
