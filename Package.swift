@@ -9,14 +9,19 @@ let package = Package(
     products: [
         .library(
             name: "CTKANALYSIS",
-            targets: ["CTKANALYSIS", "OpenCV", "LibTorch", "TensorFlowLiteC", "ONNXRuntime"]),
+            targets: ["CTKANALYSIS", "CTKANALYSIS_ObjC", "OpenCV", "LibTorch", "TensorFlowLiteC", "ONNXRuntime"]),
     ],
     dependencies: [],
     targets: [
         .binaryTarget(
             name: "CTKANALYSIS",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.10/CTKANALYSIS.xcframework.zip",
-            checksum: "6b9296c508dfd7b61d3cfeac0a466c9ee6e56c92188dbe689703db1ffe969d48"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.25/CTKANALYSIS.xcframework.zip",
+            checksum: "d554d75c1e7fce370cc0f40cadb307e513cd267d5d6a1b256d9fa1dad26a2cd1"
+        ),
+        .binaryTarget(
+            name: "CTKANALYSIS_ObjC",
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.25/CTKANALYSIS_ObjC.xcframework.zip",
+            checksum: "b31b4905d5ca99ae921cc841b986a3ee24a00f4c326af5746f1fd3d322db4f9b"
         ),
         .binaryTarget(
             name: "OpenCV",
