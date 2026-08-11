@@ -15,13 +15,13 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "CTKANALYSIS",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.87/CTKANALYSIS.xcframework.zip",
-            checksum: "85239463f6cc5a5e25eed421af3484825c86bd38ef5db1159b423bc49edf784d"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.88/CTKANALYSIS.xcframework.zip",
+            checksum: "e258ac92c7a0e950052780a87e9c78fd21c4a02deda0823505124d77fd4a4bfc"
         ),
         .binaryTarget(
             name: "CTKANALYSIS_ObjC",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.87/CTKANALYSIS_ObjC.xcframework.zip",
-            checksum: "990b097fe29ce39f23c2a777bb7ade954cdfc4e3e7145a93e18fb61dd8f9a5fd"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.88/CTKANALYSIS_ObjC.xcframework.zip",
+            checksum: "802898b1cb37169dc2e466eaaab10fe3f8bf2dbe6fc4b50b533622513f3e8291"
         ),
         .binaryTarget(
             name: "OpenCV",
