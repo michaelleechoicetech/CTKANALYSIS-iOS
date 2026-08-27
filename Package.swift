@@ -9,29 +9,24 @@ let package = Package(
     products: [
         .library(
             name: "CTKANALYSIS",
-            targets: ["CTKANALYSIS", "CTKANALYSIS_ObjC", "OpenCV", "LibTorch", "TensorFlowLiteC", "ONNXRuntime"]),
+            targets: ["CTKANALYSIS", "CTKANALYSIS_ObjC", "OpenCV", "TensorFlowLiteC", "ONNXRuntime"]),
     ],
     dependencies: [],
     targets: [
         .binaryTarget(
             name: "CTKANALYSIS",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.90/CTKANALYSIS.xcframework.zip",
-            checksum: "af78efe9c0a523eb161dbde4a736f408b449576062d9e2e2e7fd3d94453f3996"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.91/CTKANALYSIS.xcframework.zip",
+            checksum: "8de4deaa8c88c7df1a5318ad285a837636cd9b2552cf221a00df50a446f1bc8d"
         ),
         .binaryTarget(
             name: "CTKANALYSIS_ObjC",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.90/CTKANALYSIS_ObjC.xcframework.zip",
-            checksum: "762a4209bd9fe31ff1cd9f3afca9ffb3b08c93596f8cfd86c53c1805c8b32ec1"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.91/CTKANALYSIS_ObjC.xcframework.zip",
+            checksum: "1faff6ccb8a835367f7794e7f6a83a8633197cc1414923fec25af1924c05e1af"
         ),
         .binaryTarget(
             name: "OpenCV",
             url: "https://static.uwb.app/ctk/opencv2.xcframework.zip",
             checksum: "8b9f7bdf2221258d18761d9596837dd5344a672ef15bfb46e97b63030f0fba1a"
-        ),
-        .binaryTarget(
-            name: "LibTorch",
-            url: "https://static.uwb.app/ctk/LibTorch.xcframework.zip",
-            checksum: "20c7a4dff89c05aae12eec26a084dedaa8347fbf4538cf62206819af66b94e7f"
         ),
         .binaryTarget(
             name: "TensorFlowLiteC",
