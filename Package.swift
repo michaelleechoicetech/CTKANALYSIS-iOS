@@ -21,28 +21,28 @@ let package = Package(
         .target(name: "CTKAnalysisMac", path: "Sources/CTKAnalysisMac"),
         .binaryTarget(
             name: "CTKANALYSIS",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.96/CTKANALYSIS.xcframework.zip",
-            checksum: "3f3e8ac1786a413c268f0b885fefcf0d06336cdce83df45eec912916d8dc062d"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.97/CTKANALYSIS.xcframework.zip",
+            checksum: "9a58cb0764aba639ef5694166e9008111b2616b1ab7eb0ab0539be3570411d4a"
         ),
         .binaryTarget(
             name: "CTKANALYSIS_ObjC",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.96/CTKANALYSIS_ObjC.xcframework.zip",
-            checksum: "e4ff348cac3fbe347168e38de8aa37d9dd7112ced19e0c9431d5b94e3402f2fa"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.97/CTKANALYSIS_ObjC.xcframework.zip",
+            checksum: "a97fbf54bbac327252c47029d2c698386e6748577d1df2162fe15a0b50b37e1d"
         ),
         .binaryTarget(
             name: "OpenCV",
-            url: "https://static.uwb.app/ctk/opencv2.xcframework.zip",
-            checksum: "8b9f7bdf2221258d18761d9596837dd5344a672ef15bfb46e97b63030f0fba1a"
+            url: "https://static.uwb.app/ctk/signed/opencv2.xcframework.zip",
+            checksum: "10831f9faacb6f246b5e1a62b8a940ef4ba9b2d7948fed5d7394e4955a5c2942"
         ),
         .binaryTarget(
             name: "TensorFlowLiteC",
-            url: "https://static.uwb.app/ctk/TensorFlowLiteC.xcframework.zip",
-            checksum: "f18fde8fd4f92d309031fc947bfa353d13caffdd88ab671dfe9f2dc31be7abcc"
+            url: "https://static.uwb.app/ctk/signed/TensorFlowLiteC.xcframework.zip",
+            checksum: "128ba6c8eec75a9f24dab31933b7380dead45e2602a397a2dd3eeb74d662c888"
         ),
         .binaryTarget(
             name: "ONNXRuntime",
-            url: "https://static.uwb.app/ctk/onnxruntime.xcframework.zip",
-            checksum: "c89d526bb921b28877a8eadc0f0144bb577a75973e808b07c23d3812da4dbfa5"
+            url: "https://static.uwb.app/ctk/signed/onnxruntime.xcframework.zip",
+            checksum: "84e1288f1245fb0ece0dcfd5172fb80b9e43a5eefcab07cd71c996d4cb557ec8"
         )
     ]
 )
