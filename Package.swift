@@ -9,7 +9,7 @@ let package = Package(
     products: [
         .library(
             name: "CTKANALYSIS",
-            targets: ["CTKANALYSIS", "OpenCV", "TensorFlowLiteC", "ONNXRuntime"]),
+            targets: ["CTKANALYSIS", "CTKANALYSIS_ObjC", "OpenCV", "TensorFlowLiteC", "ONNXRuntime"]),
         // Mac Catalyst 전용 — iOS 와 같은 API. 엔진은 앱 번들의 ctk-analysis 헬퍼(릴리스의 ctk-analysis-mac.zip)가 실행한다.
         // 앱은 CTKANALYSIS 를 iOS 에만, CTKAnalysisMac 을 Mac Catalyst 에만 링크한다.
         .library(
@@ -21,13 +21,13 @@ let package = Package(
         .target(name: "CTKAnalysisMac", path: "Sources/CTKAnalysisMac"),
         .binaryTarget(
             name: "CTKANALYSIS",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.99/CTKANALYSIS.xcframework.zip",
-            checksum: "188f201227bcfc6dcaef5a5189b41957a8574c573b15905c7953af9be9af9480"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.100/CTKANALYSIS.xcframework.zip",
+            checksum: "cc2e4ac9839912d2861f94b9927846fbfd62deb51fcf674bf8bff738fe8b0a10"
         ),
         .binaryTarget(
             name: "CTKANALYSIS_ObjC",
-            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.99/CTKANALYSIS_ObjC.xcframework.zip",
-            checksum: "abca1cf352b15f19e90e4d6ea2b95b92298e4cdfa85d43d3fe80e487dfabbb8b"
+            url: "https://github.com/michaelleechoicetech/CTKANALYSIS-iOS/releases/download/1.0.100/CTKANALYSIS_ObjC.xcframework.zip",
+            checksum: "a28546defd5c0f5b21d7e618e4e2a0c2cc20e86cee65ea85126e9323d9df786c"
         ),
         .binaryTarget(
             name: "OpenCV",
