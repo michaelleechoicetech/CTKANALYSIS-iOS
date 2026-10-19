@@ -264,7 +264,7 @@ public final class ReverseHairImageAnalysis: NSObject {
         gender: Int,
         skinGroup: Int
     ) {
-        imageProCW.cndpHairLossAIMeasurementJSON101withinputFilePath1(
+        imageProCW.cndpHairLossAIMeasurementJSON102withinputFilePath1(
             inputFilePath1,
             withinputFilePath2: inputFilePath2,
             withinputFilePath3: inputFilePath3,

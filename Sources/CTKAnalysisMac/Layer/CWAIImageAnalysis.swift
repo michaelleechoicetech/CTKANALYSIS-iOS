@@ -359,14 +359,14 @@ extension CWAIImageAnalysis {
         }
     }
     
-    /// It utilizes the latest 'hairLossWithCounting104' (YOLO 검출 doHairCounting105 x4)
+    /// It utilizes the latest 'hairLossWithCounting105' (YOLO 검출 doHairCounting105 x4)
     public func localAIAnalysisHairLossWithHairCounting(imageFilePath1: String, imageFilePath2: String, imageFilePath3: String, imageFilePath4: String, outputFilePath1: String, outputFilePath2: String, outputFilePath3: String, outputFilePath4: String) throws -> [Double] {
         guard let module = module else {
             throw AIImageModuleError.initializationFailed
         }
-        // 최신 hairloss(1.0.5): hairLossWithCounting104 — 4장을 doHairCounting105(YOLO)로 카운팅.
+        // 최신 hairloss(1.0.5): hairLossWithCounting105 — 4장을 doHairCounting105(YOLO)로 카운팅.
         // 반환 "lossStage_density1..4_volume1..4_count1..4_follicle1..4" — Android production 과 동일.
-        let resultString = module.hairLoss(withCounting104: imageFilePath1, inputFilePath2: imageFilePath2, inputFilePath3: imageFilePath3, inputFilePath4: imageFilePath4, outputFilePath1: outputFilePath1, outputFilePath2: outputFilePath2, outputFilePath3: outputFilePath3, outputFilePath4: outputFilePath4)
+        let resultString = module.hairLoss(withCounting105: imageFilePath1, inputFilePath2: imageFilePath2, inputFilePath3: imageFilePath3, inputFilePath4: imageFilePath4, outputFilePath1: outputFilePath1, outputFilePath2: outputFilePath2, outputFilePath3: outputFilePath3, outputFilePath4: outputFilePath4)
 
         let scoreArray = resultString.split(separator: "_").map { substring -> Double in
             guard let doubleValues = Double(substring) else {

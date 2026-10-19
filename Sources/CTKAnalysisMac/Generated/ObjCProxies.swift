@@ -625,6 +625,11 @@ open class TorchModule: NSObject, CTKRPCProxy {
         return CTKRPC.string(CTKRPC.call(__rpc, "hairLossWithCounting104:inputFilePath2:inputFilePath3:inputFilePath4:outputFilePath1:outputFilePath2:outputFilePath3:outputFilePath4:", [CTKRPC.a(inputFilePath1), CTKRPC.a(inputFilePath2), CTKRPC.a(inputFilePath3), CTKRPC.a(inputFilePath4), CTKRPC.a(outputFilePath1), CTKRPC.a(outputFilePath2), CTKRPC.a(outputFilePath3), CTKRPC.a(outputFilePath4)]))
     }
 
+    @objc(hairLossWithCounting105:inputFilePath2:inputFilePath3:inputFilePath4:outputFilePath1:outputFilePath2:outputFilePath3:outputFilePath4:)
+    open func hairLoss(withCounting105 inputFilePath1: String, inputFilePath2: String, inputFilePath3: String, inputFilePath4: String, outputFilePath1: String, outputFilePath2: String, outputFilePath3: String, outputFilePath4: String) -> String {
+        return CTKRPC.string(CTKRPC.call(__rpc, "hairLossWithCounting105:inputFilePath2:inputFilePath3:inputFilePath4:outputFilePath1:outputFilePath2:outputFilePath3:outputFilePath4:", [CTKRPC.a(inputFilePath1), CTKRPC.a(inputFilePath2), CTKRPC.a(inputFilePath3), CTKRPC.a(inputFilePath4), CTKRPC.a(outputFilePath1), CTKRPC.a(outputFilePath2), CTKRPC.a(outputFilePath3), CTKRPC.a(outputFilePath4)]))
+    }
+
     @objc(CNDPHairLossWithCounting100:withinputFilePath2:withinputFilePath3:withinputFilePath4:withoutputFilePath1:withoutputFilePath2:withoutputFilePath3:withoutputFilePath4:)
     open func cndpHairLoss(withCounting100 inputFilePath1: String, withinputFilePath2 inputFilePath2: String, withinputFilePath3 inputFilePath3: String, withinputFilePath4 inputFilePath4: String, withoutputFilePath1 outputFilePath1: String, withoutputFilePath2 outputFilePath2: String, withoutputFilePath3 outputFilePath3: String, withoutputFilePath4 outputFilePath4: String) -> UnsafeMutablePointer<CChar> {
         return CTKRPC.cstring(CTKRPC.call(__rpc, "CNDPHairLossWithCounting100:withinputFilePath2:withinputFilePath3:withinputFilePath4:withoutputFilePath1:withoutputFilePath2:withoutputFilePath3:withoutputFilePath4:", [CTKRPC.a(inputFilePath1), CTKRPC.a(inputFilePath2), CTKRPC.a(inputFilePath3), CTKRPC.a(inputFilePath4), CTKRPC.a(outputFilePath1), CTKRPC.a(outputFilePath2), CTKRPC.a(outputFilePath3), CTKRPC.a(outputFilePath4)]))
@@ -3100,6 +3105,16 @@ open class unifiedComputationProCW: NSObject, CTKRPCProxy {
         return CTKRPC.double(CTKRPC.call(__rpc, "getHappyScore100:", [CTKRPC.a(imageIPScore)]))
     }
 
+    @objc(getHappyHairLossStage100:)
+    open func getHappyHairLossStage100(_ hairLossStage: Double) -> Double {
+        return CTKRPC.double(CTKRPC.call(__rpc, "getHappyHairLossStage100:", [CTKRPC.a(hairLossStage)]))
+    }
+
+    @objc(getHappyHairDensityKeyword100:AIMode:)
+    open func getHappyHairDensityKeyword100(_ hairDensityAverageScore: Double, AIMode: Bool) -> UnsafeMutablePointer<CChar> {
+        return CTKRPC.cstring(CTKRPC.call(__rpc, "getHappyHairDensityKeyword100:AIMode:", [CTKRPC.a(hairDensityAverageScore), CTKRPC.a(AIMode)]))
+    }
+
     @objc(getReversedScore100:)
     open func getReversedScore100(_ inputScore: Double) -> Double {
         return CTKRPC.double(CTKRPC.call(__rpc, "getReversedScore100:", [CTKRPC.a(inputScore)]))
@@ -3299,6 +3314,11 @@ open class ReverseHairImageProCW: NSObject, CTKRPCProxy {
     @objc(cndpHairLossAIMeasurementJSON101withinputFilePath1:withinputFilePath2:withinputFilePath3:withinputFilePath4:withoutputFilePath1:withoutputFilePath2:withoutputFilePath3:withoutputFilePath4:withoutputJSONFilePath:withgender:withskinGroup:)
     open func cndpHairLossAIMeasurementJSON101withinputFilePath1(_ inputFilePath1: String, withinputFilePath2 inputFilePath2: String, withinputFilePath3 inputFilePath3: String, withinputFilePath4 inputFilePath4: String, withoutputFilePath1 outputFilePath1: String, withoutputFilePath2 outputFilePath2: String, withoutputFilePath3 outputFilePath3: String, withoutputFilePath4 outputFilePath4: String, withoutputJSONFilePath outputJSONFilePath: String, withgender gender: Int32, withskinGroup skinGroup: Int32) {
         _ = CTKRPC.call(__rpc, "cndpHairLossAIMeasurementJSON101withinputFilePath1:withinputFilePath2:withinputFilePath3:withinputFilePath4:withoutputFilePath1:withoutputFilePath2:withoutputFilePath3:withoutputFilePath4:withoutputJSONFilePath:withgender:withskinGroup:", [CTKRPC.a(inputFilePath1), CTKRPC.a(inputFilePath2), CTKRPC.a(inputFilePath3), CTKRPC.a(inputFilePath4), CTKRPC.a(outputFilePath1), CTKRPC.a(outputFilePath2), CTKRPC.a(outputFilePath3), CTKRPC.a(outputFilePath4), CTKRPC.a(outputJSONFilePath), CTKRPC.a(gender), CTKRPC.a(skinGroup)])
+    }
+
+    @objc(cndpHairLossAIMeasurementJSON102withinputFilePath1:withinputFilePath2:withinputFilePath3:withinputFilePath4:withoutputFilePath1:withoutputFilePath2:withoutputFilePath3:withoutputFilePath4:withoutputJSONFilePath:withgender:withskinGroup:)
+    open func cndpHairLossAIMeasurementJSON102withinputFilePath1(_ inputFilePath1: String, withinputFilePath2 inputFilePath2: String, withinputFilePath3 inputFilePath3: String, withinputFilePath4 inputFilePath4: String, withoutputFilePath1 outputFilePath1: String, withoutputFilePath2 outputFilePath2: String, withoutputFilePath3 outputFilePath3: String, withoutputFilePath4 outputFilePath4: String, withoutputJSONFilePath outputJSONFilePath: String, withgender gender: Int32, withskinGroup skinGroup: Int32) {
+        _ = CTKRPC.call(__rpc, "cndpHairLossAIMeasurementJSON102withinputFilePath1:withinputFilePath2:withinputFilePath3:withinputFilePath4:withoutputFilePath1:withoutputFilePath2:withoutputFilePath3:withoutputFilePath4:withoutputJSONFilePath:withgender:withskinGroup:", [CTKRPC.a(inputFilePath1), CTKRPC.a(inputFilePath2), CTKRPC.a(inputFilePath3), CTKRPC.a(inputFilePath4), CTKRPC.a(outputFilePath1), CTKRPC.a(outputFilePath2), CTKRPC.a(outputFilePath3), CTKRPC.a(outputFilePath4), CTKRPC.a(outputJSONFilePath), CTKRPC.a(gender), CTKRPC.a(skinGroup)])
     }
 
     @objc(cndpHairAIDensityMeasurementJSON101:inputFilePath2:inputFilePath3:inputFilePath4:inputFilePath5:outputFilePath1:outputFilePath2:outputFilePath3:outputFilePath4:outputFilePath5:outputJSONFilePath:withgender:skinGroup:)
