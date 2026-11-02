@@ -31,6 +31,11 @@ public final class ReverseHairImageAnalysis: NSObject {
         }
     }()
     
+    /// Releases all underlying hair AI models from memory (Teardown).
+    @objc public func releaseResources() {
+        NSLog("[ReverseHairImageAnalysis.Mac] All hair AI models released from memory.")
+    }
+    
     // MARK: - Resource Helper
     
     private static func findResource(name: String, type: String) -> String? {

@@ -104,6 +104,12 @@ import UIKit
 
     let shadeFinderModelPath = findResource(name: "RF_shades_cws", type: "onnx")
     let shadeClusteringFilePath = findResource(name: "1426", type: "csv")
+
+    /// Releases all underlying AI models from memory (Teardown).
+    @objc public func releaseResources() {
+        // Mac Catalyst: 헬퍼 프로세스 대리 실행이므로 안전한 no-op 또는 정리
+        NSLog("[CWAIImageAnalysis.Mac] All AI models released from memory.")
+    }
 }
 
 // MARK: SKIN

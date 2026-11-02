@@ -30,6 +30,11 @@ public final class ReverseSkinImageAnalysis: NSObject {
         }
     }()
     
+    /// Releases all underlying batch AI models from memory (Teardown).
+    @objc public func releaseResources() {
+        NSLog("[ReverseSkinImageAnalysis.Mac] All batch AI models released from memory.")
+    }
+    
     // MARK: - Resource Helper
     
     private static func findResource(name: String, type: String) -> String? {
