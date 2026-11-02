@@ -225,8 +225,7 @@ extension CWAIImageAnalysis {
             throw AIImageModuleError.initializationFailed
         }
         
-        let bundle = Bundle.module
-        guard let spotClusteringModelPath = bundle.path(forResource: "20241113_cndpSpots_SG1234_V100_hsv_8clusters",ofType: ".onnx") else {
+        guard let spotClusteringModelPath = Self.findResource(name: "20241113_cndpSpots_SG1234_V100_hsv_8clusters", type: "onnx") else {
             print("Error Spot1234ClusteringModelPath Not Found")
             throw AIImageModuleError.fileNotFound
         }
@@ -254,8 +253,7 @@ extension CWAIImageAnalysis {
             throw AIImageModuleError.initializationFailed
         }
         
-        let bundle = Bundle.module
-        guard let spotClusteringModelPath = bundle.path(forResource: "20241113_cndpSpots_SG56_V100_hsv_8clusters",ofType: ".onnx") else {
+        guard let spotClusteringModelPath = Self.findResource(name: "20241113_cndpSpots_SG56_V100_hsv_8clusters", type: "onnx") else {
             print("Error Spot56ClusteringModelPath Not Found")
             throw AIImageModuleError.fileNotFound
         }
@@ -322,8 +320,7 @@ extension CWAIImageAnalysis {
             throw AIImageModuleError.initializationFailed
         }
         
-        let bundle = Bundle.module
-        guard let sensClusteringModelPath = bundle.path(forResource: "20241125_cndpSensitivity_SG123456_V100_8clusters",ofType: ".onnx") else {
+        guard let sensClusteringModelPath = Self.findResource(name: "20241125_cndpSensitivity_SG123456_V100_8clusters", type: "onnx") else {
             print("Error SensClusteringModelPath Not Found")
             throw AIImageModuleError.fileNotFound
         }
