@@ -7,33 +7,77 @@ public final class ReverseHairImageAnalysis: NSObject {
     
     public static let shared = ReverseHairImageAnalysis()
     
-    private var imageProCW: ReverseHairImageProCW = ReverseHairImageProCW()
+    private var _imageProCW: ReverseHairImageProCW?
+    private var imageProCW: ReverseHairImageProCW {
+        if let existing = _imageProCW, _module != nil {
+            return existing
+        }
+        if let module = self.module {
+            let pro = ReverseHairImageProCW(module: module)
+            _imageProCW = pro
+            return pro
+        } else {
+            let pro = ReverseHairImageProCW()
+            _imageProCW = pro
+            return pro
+        }
+    }
     
-    @objc public var module: TorchModule? = {
+    private var _module: TorchModule?
+    @objc public var module: TorchModule? {
+        get {
+            if let existing = _module { return existing }
+            let loaded = Self.loadTorchModule()
+            _module = loaded
+            return loaded
+        }
+        set {
+            _module = newValue
+        }
+    }
+
+    private static func loadTorchModule() -> TorchModule? {
         let bundle = Bundle.module
         print("[SDK_DEBUG] Using Bundle.module: \(bundle.bundlePath)")
         
         let tfliteName = "20241008_hair_loss_v101_ep80"
         let tfliteName2 = "hair_loss_v103"
+        let keratinName = "20260408_scalp_keratin_unet_model_256x256"
+        let fsaRoiName = "20261012_FSA_roi_testv104"
+        let fsaDensityName = "20261013_FSA_density_testv104"
         
         let tflitePath = findResource(name: tfliteName, type: "tflite")
         let tflitePath2 = findResource(name: tfliteName2, type: "tflite")
+        let keratinPath = findResource(name: keratinName, type: "tflite")
+        let fsaRoiPath = findResource(name: fsaRoiName, type: "tflite")
+        let fsaDensityPath = findResource(name: fsaDensityName, type: "tflite")
         
         print("[SDK_DEBUG] TFLite Path: \(String(describing: tflitePath))")
         print("[SDK_DEBUG] TFLite2 Path: \(String(describing: tflitePath2))")
+        print("[SDK_DEBUG] Keratin Path: \(String(describing: keratinPath))")
+        print("[SDK_DEBUG] FSA ROI Path: \(String(describing: fsaRoiPath))")
+        print("[SDK_DEBUG] FSA Density Path: \(String(describing: fsaDensityPath))")
         
         if let tflitePath = tflitePath, let tflitePath2 = tflitePath2,
-           let module = TorchModule(fileAtPath: "", tflitePath: tflitePath, tflitePath2: tflitePath2) {
+           let module = TorchModule(hairFolliclesModelPath: nil,
+                                    hairLossModelPath: tflitePath,
+                                    hairCountingYoloModelPath: tflitePath2,
+                                    scalpKeratinModelPath: keratinPath,
+                                    fsaROIModelPath: fsaRoiPath,
+                                    fsaDensityModelPath: fsaDensityPath) {
             return module
         } else {
             print("[SDK_DEBUG] Failed to load TorchModule paths.")
             return nil
         }
-    }()
-    
+    }
+
     /// Releases all underlying hair AI models from memory (Teardown).
     @objc public func releaseResources() {
-        NSLog("[ReverseHairImageAnalysis.Mac] All hair AI models released from memory.")
+        _module?.cleanup()
+        _module = nil
+        _imageProCW = nil
+        NSLog("[ReverseHairImageAnalysis] All hair AI models released from memory.")
     }
     
     // MARK: - Resource Helper
@@ -63,10 +107,6 @@ public final class ReverseHairImageAnalysis: NSObject {
     
     private override init() {
         super.init()
-        
-        if let module = module {
-            imageProCW = ReverseHairImageProCW(module: module)
-        }
     }
     
     // MARK: Methods
@@ -651,5 +691,151 @@ public final class ReverseHairImageAnalysis: NSObject {
             qaAnswerString: qaAnswerString,
             sebumMode: Int32(sebumMode),
             skinGroup: Int32(skinGroup))
+    }
+
+    // MARK: - Scalp Keratin AI Measurement
+
+    public func scalpKeratinAIMeasurementJSON(
+        inputFilePath1: String,
+        outputFilePath1: String,
+        maskOutputFilePath1: String,
+        inputFilePath2: String = "",
+        outputFilePath2: String = "",
+        maskOutputFilePath2: String = "",
+        inputFilePath3: String = "",
+        outputFilePath3: String = "",
+        maskOutputFilePath3: String = "",
+        inputFilePath4: String = "",
+        outputFilePath4: String = "",
+        maskOutputFilePath4: String = "",
+        inputFilePath5: String = "",
+        outputFilePath5: String = "",
+        maskOutputFilePath5: String = "",
+        outputJSONFilePath: String,
+        skinGroup: Int,
+        deviceType: Double
+    ) {
+        imageProCW.cndpHairScalpKeratinAIMeasurementJSON100(
+            inputFilePath1,
+            inputFilePath2: inputFilePath2,
+            inputFilePath3: inputFilePath3,
+            inputFilePath4: inputFilePath4,
+            inputFilePath5: inputFilePath5,
+            outputFilePath1: outputFilePath1,
+            outputFilePath2: outputFilePath2,
+            outputFilePath3: outputFilePath3,
+            outputFilePath4: outputFilePath4,
+            outputFilePath5: outputFilePath5,
+            maskOutputFilePath1: maskOutputFilePath1,
+            maskOutputFilePath2: maskOutputFilePath2,
+            maskOutputFilePath3: maskOutputFilePath3,
+            maskOutputFilePath4: maskOutputFilePath4,
+            maskOutputFilePath5: maskOutputFilePath5,
+            outputJSONFilePath: outputJSONFilePath,
+            skinGroup: Int32(skinGroup),
+            deviceType: deviceType
+        )
+    }
+
+    public func scalpKeratinAI(
+        inputImgPath: String,
+        scalpKeratinMaskOutputPath: String,
+        scalpKeratinResultOutputPath: String
+    ) -> Double {
+        guard let module = module else {
+            print("[ReverseHairImageAnalysis] module is nil")
+            return -1.0
+        }
+        return module.cndpScalpKeratinAI100(
+            inputImgPath,
+            withscalpKeratinMaskOutputPath: scalpKeratinMaskOutputPath,
+            withscalpKeratinResultOutputPath: scalpKeratinResultOutputPath
+        )
+    }
+
+    // MARK: - FSA Full Scalp AI Measurement
+
+    public func fsaAIMeasurementJSON(
+        inputFilePath1: String,
+        outputFilePath1: String,
+        inputFilePath2: String = "",
+        outputFilePath2: String = "",
+        inputFilePath3: String = "",
+        outputFilePath3: String = "",
+        inputFilePath4: String = "",
+        outputFilePath4: String = "",
+        inputFilePath5: String = "",
+        outputFilePath5: String = "",
+        outputJSONFilePath: String,
+        gender: Int // 0 for female, 1 for male
+    ) {
+        imageProCW.fsaAIMeasurementJSON100(
+            inputFilePath1,
+            inputFilePath2: inputFilePath2,
+            inputFilePath3: inputFilePath3,
+            inputFilePath4: inputFilePath4,
+            inputFilePath5: inputFilePath5,
+            outputFilePath1: outputFilePath1,
+            outputFilePath2: outputFilePath2,
+            outputFilePath3: outputFilePath3,
+            outputFilePath4: outputFilePath4,
+            outputFilePath5: outputFilePath5,
+            outputJSONFilePath: outputJSONFilePath,
+            withgender: Int32(gender)
+        )
+    }
+
+    public func fsaInferencePipeline(
+        inputImgPath: String,
+        resultImgOutputPath: String
+    ) -> Double {
+        guard let module = module else {
+            print("[ReverseHairImageAnalysis] module is nil")
+            return -1.0
+        }
+        return module.fsaInferencePipeline100(
+            inputImgPath,
+            withresultImgOutputPath: resultImgOutputPath
+        )
+    }
+
+    // MARK: - FSA + Contact Combined Hair Loss
+
+    public func fsaAndContactHairLossMeasurementJSON(
+        scalpKeratinInputJsonFilePath: String,
+        hairLossAIInputJsonFilePath: String,
+        scalpSensitiivtyInputJsonFilePath: String,
+        hairThicknessInputJsonFilePath: String,
+        fsaInputJsonFilePath: String,
+        outputJsonFilePath: String,
+        gender: Int // 0 for female, 1 for male
+    ) {
+        imageProCW.fsaAndContactHairLossMeasurementJSON100(
+            scalpKeratinInputJsonFilePath,
+            hairLossAIInputJsonFilePath: hairLossAIInputJsonFilePath,
+            scalpSensitiivtyInputJsonFilePath: scalpSensitiivtyInputJsonFilePath,
+            hairThicknessInputJsonFilePath: hairThicknessInputJsonFilePath,
+            fsaInputJsonFilePath: fsaInputJsonFilePath,
+            outputJsonFilePath: outputJsonFilePath,
+            gender: Int32(gender)
+        )
+    }
+
+    // MARK: - Hair Counting with Style 106
+
+    public func doHairCountingWithStyle106(
+        inputFilePath: String,
+        outputFilePath: String,
+        resultStyle: Int // 1: Hair Loss, 2: Hair Density, 3: White Hair
+    ) -> String {
+        guard let module = module else {
+            print("[ReverseHairImageAnalysis] module is nil")
+            return ""
+        }
+        return module.doHairCounting(
+            withStyle106: inputFilePath,
+            outputFilePath: outputFilePath,
+            resultStyle: Int32(resultStyle)
+        )
     }
 }

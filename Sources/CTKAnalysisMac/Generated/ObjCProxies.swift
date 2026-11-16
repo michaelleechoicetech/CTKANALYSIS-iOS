@@ -584,6 +584,23 @@ open class TorchModule: NSObject, CTKRPCProxy {
         super.init()
     }
 
+    @objc(initWithHairFolliclesModelPath:hairLossModelPath:hairCountingYoloModelPath:scalpKeratinModelPath:fsaROIModelPath:fsaDensityModelPath:)
+    public init?(hairFolliclesModelPath: String?, hairLossModelPath: String?, hairCountingYoloModelPath: String?, scalpKeratinModelPath: String?, fsaROIModelPath: String?, fsaDensityModelPath: String?) {
+        guard CTKRPC.isAvailable else { return nil }
+        __rpc = CTKRPCTarget.instance("TorchModule", "initWithHairFolliclesModelPath:hairLossModelPath:hairCountingYoloModelPath:scalpKeratinModelPath:fsaROIModelPath:fsaDensityModelPath:", [CTKRPC.a(hairFolliclesModelPath), CTKRPC.a(hairLossModelPath), CTKRPC.a(hairCountingYoloModelPath), CTKRPC.a(scalpKeratinModelPath), CTKRPC.a(fsaROIModelPath), CTKRPC.a(fsaDensityModelPath)])
+        super.init()
+    }
+
+    @objc(loadScalpKeratinModelWithPath:)
+    open func loadScalpKeratinModel(withPath keratinPath: String) -> Bool {
+        return CTKRPC.double(CTKRPC.call(__rpc, "loadScalpKeratinModelWithPath:", [CTKRPC.a(keratinPath)])) != 0
+    }
+
+    @objc(loadFsaModelsWithROIPath:densityPath:)
+    open func loadFsaModels(withROIPath roiPath: String, densityPath: String) -> Bool {
+        return CTKRPC.double(CTKRPC.call(__rpc, "loadFsaModelsWithROIPath:densityPath:", [CTKRPC.a(roiPath), CTKRPC.a(densityPath)])) != 0
+    }
+
     @objc(segmentImage:withWidth:withHeight:)
     open func segment(image imageBuffer: UnsafeMutableRawPointer, withWidth width: Int32, withHeight height: Int32) -> UnsafeMutablePointer<UInt8> {
         CTKRPC.unsupported("TorchModule.segmentImage:withWidth:withHeight:")
@@ -618,6 +635,11 @@ open class TorchModule: NSObject, CTKRPCProxy {
     @objc(doHairCounting105:outputFilePath:)
     open func doHairCounting105(_ inputFilePath: String, outputFilePath: String) -> String {
         return CTKRPC.string(CTKRPC.call(__rpc, "doHairCounting105:outputFilePath:", [CTKRPC.a(inputFilePath), CTKRPC.a(outputFilePath)]))
+    }
+
+    @objc(doHairCountingWithStyle106:outputFilePath:resultStyle:)
+    open func doHairCounting(withStyle106 inputFilePath: String, outputFilePath: String, resultStyle: Int32) -> String {
+        return CTKRPC.string(CTKRPC.call(__rpc, "doHairCountingWithStyle106:outputFilePath:resultStyle:", [CTKRPC.a(inputFilePath), CTKRPC.a(outputFilePath), CTKRPC.a(resultStyle)]))
     }
 
     @objc(hairLossWithCounting104:inputFilePath2:inputFilePath3:inputFilePath4:outputFilePath1:outputFilePath2:outputFilePath3:outputFilePath4:)
@@ -658,6 +680,21 @@ open class TorchModule: NSObject, CTKRPCProxy {
     @objc(hairLossAISupport100:)
     open func hairLossAISupport100(_ inputFilePath: String) -> Double {
         return CTKRPC.double(CTKRPC.call(__rpc, "hairLossAISupport100:", [CTKRPC.a(inputFilePath)]))
+    }
+
+    @objc(cndpScalpKeratinAI100:withscalpKeratinMaskOutputPath:withscalpKeratinResultOutputPath:)
+    open func cndpScalpKeratinAI100(_ inputImgPath: String, withscalpKeratinMaskOutputPath scalpKeratinMaskOutputPath: String, withscalpKeratinResultOutputPath scalpKeratinResultOutputPath: String) -> Double {
+        return CTKRPC.double(CTKRPC.call(__rpc, "cndpScalpKeratinAI100:withscalpKeratinMaskOutputPath:withscalpKeratinResultOutputPath:", [CTKRPC.a(inputImgPath), CTKRPC.a(scalpKeratinMaskOutputPath), CTKRPC.a(scalpKeratinResultOutputPath)]))
+    }
+
+    @objc(fsaInferencePipeline100:withresultImgOutputPath:)
+    open func fsaInferencePipeline100(_ inputImgPath: String, withresultImgOutputPath resultImgOutputPath: String) -> Double {
+        return CTKRPC.double(CTKRPC.call(__rpc, "fsaInferencePipeline100:withresultImgOutputPath:", [CTKRPC.a(inputImgPath), CTKRPC.a(resultImgOutputPath)]))
+    }
+
+    @objc(cleanup)
+    open func cleanup() {
+        _ = CTKRPC.call(__rpc, "cleanup", [])
     }
 
 }
@@ -875,6 +912,11 @@ open class cndpSkinAI: NSObject, CTKRPCProxy {
     @objc(cndpSkinSensitivityAIMeasurementJSON100:inputFilePath1:outputFilePath1:outputFilePathPink1:outputFilePathRed1:inputFilePath2:outputFilePath2:outputFilePathPink2:outputFilePathRed2:inputFilePath3:outputFilePath3:outputFilePathPink3:outputFilePathRed3:inputFilePath4:outputFilePath4:outputFilePathPink4:outputFilePathRed4:inputFilePath5:outputFilePath5:outputFilePathPink5:outputFilePathRed5:outputJSONFilePath:qaAnswerString:skinGroup:)
     open func cndpSkinSensitivityAIMeasurementJSON100(_ onnxModelpath: String, inputFilePath1: String, outputFilePath1: String, outputFilePathPink1: String, outputFilePathRed1: String, inputFilePath2: String, outputFilePath2: String, outputFilePathPink2: String, outputFilePathRed2: String, inputFilePath3: String, outputFilePath3: String, outputFilePathPink3: String, outputFilePathRed3: String, inputFilePath4: String, outputFilePath4: String, outputFilePathPink4: String, outputFilePathRed4: String, inputFilePath5: String, outputFilePath5: String, outputFilePathPink5: String, outputFilePathRed5: String, outputJSONFilePath: String, qaAnswerString: UnsafePointer<CChar>, skinGroup: Int32) {
         _ = CTKRPC.call(__rpc, "cndpSkinSensitivityAIMeasurementJSON100:inputFilePath1:outputFilePath1:outputFilePathPink1:outputFilePathRed1:inputFilePath2:outputFilePath2:outputFilePathPink2:outputFilePathRed2:inputFilePath3:outputFilePath3:outputFilePathPink3:outputFilePathRed3:inputFilePath4:outputFilePath4:outputFilePathPink4:outputFilePathRed4:inputFilePath5:outputFilePath5:outputFilePathPink5:outputFilePathRed5:outputJSONFilePath:qaAnswerString:skinGroup:", [CTKRPC.a(onnxModelpath), CTKRPC.a(inputFilePath1), CTKRPC.a(outputFilePath1), CTKRPC.a(outputFilePathPink1), CTKRPC.a(outputFilePathRed1), CTKRPC.a(inputFilePath2), CTKRPC.a(outputFilePath2), CTKRPC.a(outputFilePathPink2), CTKRPC.a(outputFilePathRed2), CTKRPC.a(inputFilePath3), CTKRPC.a(outputFilePath3), CTKRPC.a(outputFilePathPink3), CTKRPC.a(outputFilePathRed3), CTKRPC.a(inputFilePath4), CTKRPC.a(outputFilePath4), CTKRPC.a(outputFilePathPink4), CTKRPC.a(outputFilePathRed4), CTKRPC.a(inputFilePath5), CTKRPC.a(outputFilePath5), CTKRPC.a(outputFilePathPink5), CTKRPC.a(outputFilePathRed5), CTKRPC.a(outputJSONFilePath), CTKRPC.a(qaAnswerString), CTKRPC.a(skinGroup)])
+    }
+
+    @objc(cleanup)
+    open func cleanup() {
+        _ = CTKRPC.call(__rpc, "cleanup", [])
     }
 
 }
@@ -3111,7 +3153,7 @@ open class unifiedComputationProCW: NSObject, CTKRPCProxy {
     }
 
     @objc(getHappyHairDensityKeyword100:AIMode:)
-    open func getHappyHairDensityKeyword100(_ hairDensityAverageScore: Double, AIMode: Bool) -> UnsafeMutablePointer<CChar> {
+    open func getHappyHairDensityKeyword100(_ hairDensityAverageScore: Double, aiMode AIMode: Bool) -> UnsafeMutablePointer<CChar> {
         return CTKRPC.cstring(CTKRPC.call(__rpc, "getHappyHairDensityKeyword100:AIMode:", [CTKRPC.a(hairDensityAverageScore), CTKRPC.a(AIMode)]))
     }
 
@@ -3369,6 +3411,21 @@ open class ReverseHairImageProCW: NSObject, CTKRPCProxy {
     @objc(cndphhHairScalpConditionMeasurementJSON100:inputFilePath2:outputFilePath1:outputFilePath2:outputJSONFilePath:qaAnswerString:sebumMode:skinGroup:)
     open func cndphhHairScalpConditionMeasurementJSON100(_ inputFilePath1: String, inputFilePath2: String, outputFilePath1: String, outputFilePath2: String, outputJSONFilePath: String, qaAnswerString: UnsafePointer<CChar>, sebumMode: Int32, skinGroup: Int32) {
         _ = CTKRPC.call(__rpc, "cndphhHairScalpConditionMeasurementJSON100:inputFilePath2:outputFilePath1:outputFilePath2:outputJSONFilePath:qaAnswerString:sebumMode:skinGroup:", [CTKRPC.a(inputFilePath1), CTKRPC.a(inputFilePath2), CTKRPC.a(outputFilePath1), CTKRPC.a(outputFilePath2), CTKRPC.a(outputJSONFilePath), CTKRPC.a(qaAnswerString), CTKRPC.a(sebumMode), CTKRPC.a(skinGroup)])
+    }
+
+    @objc(cndpHairScalpKeratinAIMeasurementJSON100:inputFilePath2:inputFilePath3:inputFilePath4:inputFilePath5:outputFilePath1:outputFilePath2:outputFilePath3:outputFilePath4:outputFilePath5:maskOutputFilePath1:maskOutputFilePath2:maskOutputFilePath3:maskOutputFilePath4:maskOutputFilePath5:outputJSONFilePath:skinGroup:deviceType:)
+    open func cndpHairScalpKeratinAIMeasurementJSON100(_ inputFilePath1: String, inputFilePath2: String, inputFilePath3: String, inputFilePath4: String, inputFilePath5: String, outputFilePath1: String, outputFilePath2: String, outputFilePath3: String, outputFilePath4: String, outputFilePath5: String, maskOutputFilePath1: String, maskOutputFilePath2: String, maskOutputFilePath3: String, maskOutputFilePath4: String, maskOutputFilePath5: String, outputJSONFilePath: String, skinGroup: Int32, deviceType: Double) {
+        _ = CTKRPC.call(__rpc, "cndpHairScalpKeratinAIMeasurementJSON100:inputFilePath2:inputFilePath3:inputFilePath4:inputFilePath5:outputFilePath1:outputFilePath2:outputFilePath3:outputFilePath4:outputFilePath5:maskOutputFilePath1:maskOutputFilePath2:maskOutputFilePath3:maskOutputFilePath4:maskOutputFilePath5:outputJSONFilePath:skinGroup:deviceType:", [CTKRPC.a(inputFilePath1), CTKRPC.a(inputFilePath2), CTKRPC.a(inputFilePath3), CTKRPC.a(inputFilePath4), CTKRPC.a(inputFilePath5), CTKRPC.a(outputFilePath1), CTKRPC.a(outputFilePath2), CTKRPC.a(outputFilePath3), CTKRPC.a(outputFilePath4), CTKRPC.a(outputFilePath5), CTKRPC.a(maskOutputFilePath1), CTKRPC.a(maskOutputFilePath2), CTKRPC.a(maskOutputFilePath3), CTKRPC.a(maskOutputFilePath4), CTKRPC.a(maskOutputFilePath5), CTKRPC.a(outputJSONFilePath), CTKRPC.a(skinGroup), CTKRPC.a(deviceType)])
+    }
+
+    @objc(fsaAIMeasurementJSON100:inputFilePath2:inputFilePath3:inputFilePath4:inputFilePath5:outputFilePath1:outputFilePath2:outputFilePath3:outputFilePath4:outputFilePath5:outputJSONFilePath:withgender:)
+    open func fsaAIMeasurementJSON100(_ inputFilePath1: String, inputFilePath2: String, inputFilePath3: String, inputFilePath4: String, inputFilePath5: String, outputFilePath1: String, outputFilePath2: String, outputFilePath3: String, outputFilePath4: String, outputFilePath5: String, outputJSONFilePath: String, withgender gender: Int32) {
+        _ = CTKRPC.call(__rpc, "fsaAIMeasurementJSON100:inputFilePath2:inputFilePath3:inputFilePath4:inputFilePath5:outputFilePath1:outputFilePath2:outputFilePath3:outputFilePath4:outputFilePath5:outputJSONFilePath:withgender:", [CTKRPC.a(inputFilePath1), CTKRPC.a(inputFilePath2), CTKRPC.a(inputFilePath3), CTKRPC.a(inputFilePath4), CTKRPC.a(inputFilePath5), CTKRPC.a(outputFilePath1), CTKRPC.a(outputFilePath2), CTKRPC.a(outputFilePath3), CTKRPC.a(outputFilePath4), CTKRPC.a(outputFilePath5), CTKRPC.a(outputJSONFilePath), CTKRPC.a(gender)])
+    }
+
+    @objc(fsaAndContactHairLossMeasurementJSON100:hairLossAIInputJsonFilePath:scalpSensitiivtyInputJsonFilePath:hairThicknessInputJsonFilePath:FsaInputJsonFilePath:outputJsonFilePath:gender:)
+    open func fsaAndContactHairLossMeasurementJSON100(_ scalpKeratinInputJsonFilePath: String, hairLossAIInputJsonFilePath: String, scalpSensitiivtyInputJsonFilePath: String, hairThicknessInputJsonFilePath: String, fsaInputJsonFilePath FsaInputJsonFilePath: String, outputJsonFilePath: String, gender: Int32) {
+        _ = CTKRPC.call(__rpc, "fsaAndContactHairLossMeasurementJSON100:hairLossAIInputJsonFilePath:scalpSensitiivtyInputJsonFilePath:hairThicknessInputJsonFilePath:FsaInputJsonFilePath:outputJsonFilePath:gender:", [CTKRPC.a(scalpKeratinInputJsonFilePath), CTKRPC.a(hairLossAIInputJsonFilePath), CTKRPC.a(scalpSensitiivtyInputJsonFilePath), CTKRPC.a(hairThicknessInputJsonFilePath), CTKRPC.a(FsaInputJsonFilePath), CTKRPC.a(outputJsonFilePath), CTKRPC.a(gender)])
     }
 
 }

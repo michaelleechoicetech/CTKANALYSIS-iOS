@@ -32,14 +32,25 @@ import UIKit
     
     @objc(shared) public static let shared = CWAIImageAnalysis()
     
-    @objc public var module: TorchModule? = {
+    private var _module: TorchModule?
+    @objc public var module: TorchModule? {
+        get {
+            if let existing = _module { return existing }
+            let loaded = Self.loadTorchModule()
+            _module = loaded
+            return loaded
+        }
+        set {
+            _module = newValue
+        }
+    }
+    
+    private static func loadTorchModule() -> TorchModule? {
         let bundle = Bundle.module
         print("[SDK_DEBUG] Using Bundle.module: \(bundle.bundlePath)")
         
         let ptName = "hair_follicles_detetcion_torch_1.13_v1_ep5000"
         let tfliteName = "20241008_hair_loss_v101_ep80"
-        // 최신 카운팅(1.0.5): hair_loss_v103.tflite = YOLO 검출 모델(입력 640). tflitePath2 로 로드해야
-        // doHairCounting105 / hairLossWithCounting104 가 동작한다(Android production 과 동일).
         let yoloName = "hair_loss_v103"
 
         let ptPath = findResource(name: ptName, type: "pt")
@@ -57,9 +68,22 @@ import UIKit
             print("[SDK_DEBUG] Failed to load TorchModule paths.")
             return nil
         }
-    }()
+    }
     
-    private lazy var unetModule: cndpSkinAI? = {
+    private var _unetModule: cndpSkinAI?
+    public var unetModule: cndpSkinAI? {
+        get {
+            if let existing = _unetModule { return existing }
+            let loaded = Self.loadUnetModule()
+            _unetModule = loaded
+            return loaded
+        }
+        set {
+            _unetModule = newValue
+        }
+    }
+    
+    private static func loadUnetModule() -> cndpSkinAI? {
         let modelPaths = [
             ("20241017_wrinkles_effnet_model_combined_v2_256256", "tflite"),
             ("20240607_CNDP_Wrinkles_Hair_Removal_v1", "tflite"),
@@ -100,16 +124,19 @@ import UIKit
             print("Failed to initialize cndpSkinAI with found model paths")
             return nil
         }
-    }()
-
-    let shadeFinderModelPath = findResource(name: "RF_shades_cws", type: "onnx")
-    let shadeClusteringFilePath = findResource(name: "1426", type: "csv")
+    }
 
     /// Releases all underlying AI models from memory (Teardown).
     @objc public func releaseResources() {
-        // Mac Catalyst: 헬퍼 프로세스 대리 실행이므로 안전한 no-op 또는 정리
-        NSLog("[CWAIImageAnalysis.Mac] All AI models released from memory.")
+        _unetModule?.cleanup()
+        _unetModule = nil
+        _module?.cleanup()
+        _module = nil
+        NSLog("[CWAIImageAnalysis] All AI models released from memory.")
     }
+
+    let shadeFinderModelPath = findResource(name: "RF_shades_cws", type: "onnx")
+    let shadeClusteringFilePath = findResource(name: "1426", type: "csv")
 }
 
 // MARK: SKIN

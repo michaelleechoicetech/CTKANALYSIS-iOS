@@ -9,7 +9,22 @@ public final class ReverseSkinImageAnalysis: NSObject {
     
     private let imageProCW: ReverseSkinImageProCW = ReverseSkinImageProCW()
     
-    @objc public var unetModule: cndpSkinAI = {
+    private var _unetModule: cndpSkinAI?
+    @objc public var unetModule: cndpSkinAI {
+        get {
+            if let existing = _unetModule { return existing }
+            guard let loaded = Self.loadUnetModule() else {
+                fatalError("Can't find UNet CNDP Skin AI models")
+            }
+            _unetModule = loaded
+            return loaded
+        }
+        set {
+            _unetModule = newValue
+        }
+    }
+
+    private static func loadUnetModule() -> cndpSkinAI? {
         if let wrinkleModelPath = findResource(name: "20241017_cndpWrinkles_SG123456_V100_256256", type: ".tflite"),
            let hairRemovalModelPath = findResource(name: "20240607_CNDP_Wrinkles_Hair_Removal_v1", type: ".tflite"),
            let poresModelPath = findResource(name: "2025-02-22_unet_ep30_cndpPores_127_norm_V102_SG123456", type: ".tflite"),
@@ -26,13 +41,15 @@ public final class ReverseSkinImageAnalysis: NSObject {
                                        spotsSG56ModelPath: spotsSG56ModelPath) {
             return unetModule
         } else {
-            fatalError("Can't find UNet CNDP Skin AI models")
+            return nil
         }
-    }()
-    
+    }
+
     /// Releases all underlying batch AI models from memory (Teardown).
     @objc public func releaseResources() {
-        NSLog("[ReverseSkinImageAnalysis.Mac] All batch AI models released from memory.")
+        _unetModule?.cleanup()
+        _unetModule = nil
+        NSLog("[ReverseSkinImageAnalysis] All batch AI models released from memory.")
     }
     
     // MARK: - Resource Helper
